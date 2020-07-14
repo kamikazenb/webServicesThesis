@@ -7,18 +7,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TouchDao {
-    int insertTouch(UUID id, Touch touch);
+//    int insertTouch(UUID id, Touch touch);
 
     default int insertTouch(Touch touch){
-        UUID id = UUID.randomUUID();
-        return insertTouch(id, touch);
+//        UUID id = UUID.randomUUID();
+        return insertTouch(touch);
     }
 
     List<Touch> selectAllTouches();
 
-    Optional<Touch> selectTouchById(UUID id);
+//    Optional<Touch> selectTouchById(UUID id);
 
-    int deleteTouchById(UUID id);
+//    int deleteTouchById(UUID id);
 
-    int updateTouchById(UUID id, Touch touch);
+//    int updateTouchById(UUID id, Touch touch);
 }

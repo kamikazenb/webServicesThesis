@@ -28,7 +28,7 @@ public class TouchService {
         return touchDao.selectAllTouches();
     }
 
-    public Optional<Touch> getTouchById(UUID id) {
+  /*  public Optional<Touch> getTouchById(UUID id) {
         return touchDao.selectTouchById(id);
     }
 
@@ -39,5 +39,5 @@ public class TouchService {
     public int updateTouch(UUID id, Touch newTouch) {
         return touchDao.updateTouchById(id, newTouch);
     }
-
+*/
 }

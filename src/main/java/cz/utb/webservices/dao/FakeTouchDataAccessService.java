@@ -14,8 +14,9 @@ public class FakeTouchDataAccessService implements TouchDao {
     private static List<Touch> DB = new ArrayList<>();
 
     @Override
-    public int insertTouch(UUID id, Touch touch) {
-        DB.add(new Touch(id, touch.getX()));
+    public int insertTouch(Touch touch) {
+
+        DB.add(touch);
         return 1;
     }
 
@@ -24,7 +25,7 @@ public class FakeTouchDataAccessService implements TouchDao {
         return DB;
     }
 
-    @Override
+ /*   @Override
     public Optional<Touch> selectTouchById(UUID id) {
         return DB.stream().filter(touch -> touch.getId().equals(id))
                 .findFirst();
@@ -53,5 +54,5 @@ public class FakeTouchDataAccessService implements TouchDao {
             }
             return 0;
         }).orElse(0);
-    }
+    }*/
 }

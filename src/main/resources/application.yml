@@ -1,0 +1,4 @@
+app:
+  datasource:
+    jdbc-url: jdbc:mysql://localhost:3306/mydb?useLegacyDatetimeCode=false&serverTimezone=Europe/Vienna
+    username: root

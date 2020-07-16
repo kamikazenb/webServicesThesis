@@ -1,37 +1,47 @@
 package cz.utb.webservices.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
+@Entity
+@Table(name="touch")
 public class Touch {
 
-    @NotNull
-    private final float x;
-    private final float y;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idtouch;
     @NotBlank
-    private final String touchType;
-    private final String clientCreated;
-    private final String serverReceived;
-    private final int client_idclient;
-    private final int serverType_idserverType = 2;
-
+    @Column(name = "touchtype")
+    private String touchType;
+    @NotNull
+    private float x;
+    private float y;
+    @NotBlank
+    @Column(name = "clientcreated")
+    private String clientCreated;
+    @Column(name = "serverreceived")
+    private String serverReceived;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "idclient", name="client_idclient", nullable=false)
+    private Client client;
 
     public Touch(@JsonProperty("x") float x,
                  @JsonProperty("y") float y,
                  @JsonProperty("touchType") String touchType,
                  @JsonProperty("clientCreated") String clientCreated,
                  @JsonProperty("serverReceived") String serverReceived,
-                 @JsonProperty("client_idclient") int client_idclient) {
+                 Client client) {
         this.x = x;
         this.y = y;
         this.touchType = touchType;
         this.clientCreated = clientCreated;
         this.serverReceived = serverReceived;
-        this.client_idclient = client_idclient;
+        this.client = client;
     }
+
+    protected  Touch() {}
 
     public float getX() {
         return x;
@@ -53,11 +63,15 @@ public class Touch {
         return serverReceived;
     }
 
-    public int getClient_idclient() {
-        return client_idclient;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public int getServerType_idserverType() {
-        return serverType_idserverType;
+    @Override
+    public String toString() {
+        return String.format(
+                "Touch[touchType='%s', touchType='%s']",
+                  touchType, clientCreated);
     }
+
 }

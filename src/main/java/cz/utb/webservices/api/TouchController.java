@@ -1,30 +1,13 @@
 package cz.utb.webservices.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import cz.utb.webservices.model.Touch;
+import cz.utb.webservices.repository.ClientRepository;
+import cz.utb.webservices.repository.TouchRepository;
 import cz.utb.webservices.service.TouchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 
 import javax.validation.Valid;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.sse.Sse;
-import javax.ws.rs.sse.SseEventSink;
-import java.time.Duration;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-import java.util.stream.Stream;
 
 
 @RequestMapping("api/v1/touch")
@@ -32,23 +15,30 @@ import java.util.stream.Stream;
 public class TouchController {
 
     private final TouchService touchService;
+    private final TouchRepository touchRepository;
+    private final ClientRepository clientRepository;
+
 
     @Autowired
-    public TouchController(TouchService touchService) {
+    public TouchController(TouchService touchService,
+                           TouchRepository touchRepository,
+                           ClientRepository clientRepository) {
         this.touchService = touchService;
+        this.touchRepository = touchRepository;
+        this.clientRepository = clientRepository;
     }
 
     @PostMapping
-    public void addPerson(@Valid @NonNull @RequestBody Touch touch) { //@RequestBody ze vyzaduje aby bol v JSON telo
-        touchService.addTouch(touch);
+    public void addPerson(@Valid @NonNull @RequestBody MultiBodyResolver multiBodyResolver) { //@RequestBody ze vyzaduje aby bol v JSON telo
+        touchService.addTouch(multiBodyResolver.getTouch(), multiBodyResolver.getClient());
     }
 
-    @GetMapping
-    public List<Touch> getAllTouches() {
-        return touchService.getAllTouches();
-    }
+//    @GetMapping
+//    public List<Touch> getAllTouches() {
+//        return touchService.getAllTouches();
+//    }
 
-    @GetMapping("/stream-sse")
+  /*  @GetMapping("/stream-sse")
     public Flux<ServerSentEvent<String>> streamEvents() {
         String json = "";
         try {
@@ -64,5 +54,5 @@ public class TouchController {
                         .event("periodic-event")
                         .data(result)
                         .build());
-    }
+    }*/
 }

@@ -7,18 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class TouchService {
 
     private final TouchDAO serverDao;
 
     @Autowired
-    public TouchService(@Qualifier("JPAdataAcess") TouchDAO serverDao) {
+    public TouchService(@Qualifier("TouchDataAccess") TouchDAO serverDao) {
         this.serverDao = serverDao;
     }
 
     public int addTouch(Touch touch, Client client) {
         return serverDao.insertTouch(touch, client);
     }
+
+    public int addClient(Client client) {
+        return serverDao.insertClient(client);
+    }
+
 
 }

@@ -1,14 +1,19 @@
 package cz.utb.webservices.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import cz.utb.webservices.api.SSEController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@EntityListeners(SSEController.class)
 @Entity
 @Table(name="touch")
 public class Touch {
-
+    private static final Logger log = LoggerFactory.getLogger(Touch.class);
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idtouch;

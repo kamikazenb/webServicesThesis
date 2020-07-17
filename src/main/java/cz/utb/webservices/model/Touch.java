@@ -2,6 +2,8 @@ package cz.utb.webservices.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.utb.webservices.api.SSEController;
+import cz.utb.webservices.service.MemoryObserverJob;
+//import cz.utb.webservices.service.TouchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@EntityListeners(SSEController.class)
+@EntityListeners(MemoryObserverJob.class)
 @Entity
 @Table(name="touch")
 public class Touch {

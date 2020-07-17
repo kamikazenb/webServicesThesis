@@ -20,19 +20,15 @@ public class Client {
 
     protected Client(){           }
 
-    public Client(String name,
+    public Client(@JsonProperty("name") String name,
                   @JsonProperty("token") String token){
         this.name = name;
-        this.token = token;
-    }
-    public Client(@JsonProperty("token") String token){
-        this.name = "";
         this.token = token;
     }
     @Override
     public String toString() {
         return String.format(
-                "Touch[name='%s', token='%s']",
+                "Client[name='%s', token='%s']",
                 name, token);
     }
 

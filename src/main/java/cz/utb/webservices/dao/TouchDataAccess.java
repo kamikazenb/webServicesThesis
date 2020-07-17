@@ -23,9 +23,8 @@ public class TouchDataAccess implements TouchDAO {
 
     @Override
     public int insertTouch(Touch touch, Client client) {
-
-      Optional<Client> optionalClient = clientRepository.findByToken(client.getToken());
       try {
+          Optional<Client> optionalClient = clientRepository.findByToken(client.getToken());
           if (optionalClient.isPresent()) {
               Client b = optionalClient.get();
               touch.setClient(b);

@@ -1,5 +1,6 @@
 package cz.utb.webservices.api;
 
+import ch.rasc.sse.eventbus.SseEvent;
 import ch.rasc.sse.eventbus.SseEventBus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
@@ -29,7 +31,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class SSEController {
     private static final Logger log = LoggerFactory.getLogger(SSEController.class);
     private final CopyOnWriteArrayList<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+    private final SseEventBus eventBus;
 
+    public SSEController(SseEventBus eventBus) {
+        this.eventBus = eventBus;
+    }
+    @GetMapping("/sse/{id}")
+    public SseEmitter register(@PathVariable("id") String id, HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-store");
+        return this.eventBus.createSseEmitter(id,  SseEvent.DEFAULT_EVENT, "touch");
+    }
 
     @GetMapping("/memory")
     public SseEmitter handle(HttpServletResponse response) {
@@ -47,13 +58,12 @@ public class SSEController {
     }
 
     @EventListener
-    public void onMemoryInfo(MemoryInfo memoryInfo) {
+    public void onMemoryInfo(Touch touch) {
         log.info("onMemoryInfo");
         List<SseEmitter> deadEmitters = new ArrayList<>();
         this.emitters.forEach(emitter -> {
             try {
-                emitter.send(memoryInfo);
-
+                emitter.send(touch);
                 // close connnection, browser automatically reconnects
                 // emitter.complete();
 

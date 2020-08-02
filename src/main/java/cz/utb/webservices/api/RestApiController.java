@@ -28,7 +28,7 @@ public class MyRestApiController {
 
     @PostMapping("/touch")
     public void addTouch(@Valid @NonNull @RequestBody MultiBodyResolver multiBodyResolver) {
-        touchService.addTouch(multiBodyResolver.getTouch(), multiBodyResolver.getClient());
+        touchService.addTouch(multiBodyResolver.getTouches(), multiBodyResolver.getClient());
     }
 
     @PostMapping("/client")

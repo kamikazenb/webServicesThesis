@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository("TouchDataAccess")
@@ -22,29 +23,37 @@ public class TouchDataAccess implements TouchDAO {
     }
 
     @Override
-    public int insertTouch(Touch touch, Client client) {
-      try {
-          Optional<Client> optionalClient = clientRepository.findByToken(client.getToken());
-          if (optionalClient.isPresent()) {
-              Client b = optionalClient.get();
-              touch.setClient(b);
-              touchRepository.save(touch);
-              return 1;
-          }else {
-              return 0;
-          }
-      }catch (Exception e){
-          return 0;
-      }
+    public int insertTouch(List<Touch> touches, Client client) {
+        try {
+            Optional<Client> optionalClient = clientRepository.findByToken(client.getToken());
+            if (optionalClient.isPresent()) {
+                Client b = optionalClient.get();
+                for (Touch touch : touches) {
+                    touch.setClient(b);
+                    touchRepository.save(touch);
+                }
+
+                return 1;
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            return 0;
+        }
 
     }
 
     @Override
     public int insertClient(Client client) {
+        if (touchRepository.count() > 1200) {
+            touchRepository.deleteAll();
+        }
+        log.info("touches count: " + touchRepository.count());
+
         try {
             clientRepository.save(client);
             return 1;
-        }catch (Exception e){
+        } catch (Exception e) {
             return 0;
         }
     }

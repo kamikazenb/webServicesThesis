@@ -3,8 +3,6 @@ package cz.utb.webservices.service;
 import ch.rasc.sse.eventbus.SseEvent;
 import ch.rasc.sse.eventbus.SseEventBus;
 import cz.utb.webservices.api.SSEController;
-import cz.utb.webservices.model.Dto;
-import cz.utb.webservices.model.MemoryInfo;
 import cz.utb.webservices.model.Touch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +45,7 @@ public class MemoryObserverJob {
 //        this.eventPublisher.publishEvent(SseEvent.of("dto", dto));
     }
 
-    @Scheduled(fixedRate = 1000)
+/*    @Scheduled(fixedRate = 1000)
     public void doSomething() {
 
         MemoryMXBean memBean = ManagementFactory.getMemoryMXBean();
@@ -56,9 +54,10 @@ public class MemoryObserverJob {
 
         MemoryInfo mi = new MemoryInfo(heap.getUsed(), nonHeap.getUsed());
 //        this.eventPublisher.publishEvent(mi);
-    }
+    }*/
     @PrePersist
     public void afterAnyUpdate(Touch touch) {
-        this.eventPublisher.publishEvent(SseEvent.of("touch", touch));
+
+        this.eventPublisher.publishEvent(SseEvent.of( touch.getClient().getToken(), touch));
     }
 }

@@ -8,4 +8,8 @@ import java.util.List;
 public interface TouchRepository extends CrudRepository<Touch, Long> {
     List<Touch> findByTouchType(String touchType);
     Touch findById(long id);
+    long count();
+
+    @Override
+    void deleteAll();
 }

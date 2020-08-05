@@ -1,8 +1,8 @@
 package cz.utb.webservices;
 
 import ch.rasc.sse.eventbus.config.EnableSseEventBus;
-import cz.utb.webservices.repository.ClientRepository;
-import cz.utb.webservices.repository.TouchRepository;
+import cz.utb.webservices.persistence.repository.ClientRepository;
+import cz.utb.webservices.persistence.repository.TouchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

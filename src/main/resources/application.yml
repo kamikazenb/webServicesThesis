@@ -1,4 +1,8 @@
 app:
   datasource:
-    jdbc-url: jdbc:mysql://localhost:3306/mydb?useLegacyDatetimeCode=false&serverTimezone=Europe/Vienna
+    jdbc-url: jdbc:mysql://localhost:3306/webservices?useLegacyDatetimeCode=false&serverTimezone=Europe/Vienna
     username: root
+    password: 'account'
+
+server:
+  port: 50202

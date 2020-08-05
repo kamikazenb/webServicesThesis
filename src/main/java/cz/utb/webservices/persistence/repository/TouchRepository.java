@@ -1,6 +1,6 @@
-package cz.utb.webservices.repository;
+package cz.utb.webservices.persistence.repository;
 
-import cz.utb.webservices.model.Touch;
+import cz.utb.webservices.persistence.model.Touch;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

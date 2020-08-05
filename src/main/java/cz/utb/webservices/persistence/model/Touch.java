@@ -1,4 +1,4 @@
-package cz.utb.webservices.model;
+package cz.utb.webservices.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.utb.webservices.service.EventService;

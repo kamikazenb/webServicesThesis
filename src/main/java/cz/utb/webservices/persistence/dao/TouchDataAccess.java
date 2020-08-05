@@ -1,9 +1,9 @@
-package cz.utb.webservices.dao;
+package cz.utb.webservices.persistence.dao;
 
-import cz.utb.webservices.model.Client;
-import cz.utb.webservices.model.Touch;
-import cz.utb.webservices.repository.ClientRepository;
-import cz.utb.webservices.repository.TouchRepository;
+import cz.utb.webservices.persistence.model.Client;
+import cz.utb.webservices.persistence.model.Touch;
+import cz.utb.webservices.persistence.repository.ClientRepository;
+import cz.utb.webservices.persistence.repository.TouchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;

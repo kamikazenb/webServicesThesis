@@ -6,12 +6,12 @@ import cz.utb.webservices.persistence.model.Touch;
 import java.util.List;
 
 
-public class MultiBodyResolver {
+public class JSONhelper {
     private Touch touch;
     private Client client;
     private List<Touch> touches = null;
 
-    public MultiBodyResolver(List<Touch> touches, Touch touch) {
+    public JSONhelper(List<Touch> touches, Touch touch) {
         this.touches = touches;
         this.touch = touch;
     }

@@ -1,7 +1,7 @@
-package cz.utb.webservices.dao;
+package cz.utb.webservices.persistence.dao;
 
-import cz.utb.webservices.model.Client;
-import cz.utb.webservices.model.Touch;
+import cz.utb.webservices.persistence.model.Client;
+import cz.utb.webservices.persistence.model.Touch;
 
 import java.util.List;
 
